@@ -1,52 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Quote Generator</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      text-align: center;
-    }
-    #quoteDisplay {
-      margin: 20px 0;
-      font-size: 1.2rem;
-      font-style: italic;
-      min-height: 50px;
-    }
-    select, input, button {
-      margin: 5px;
-      padding: 5px;
-    }
-    .categorySelect {
-      margin-bottom: 15px;
-    }
+    :root{ --gap:12px; font-family:system-ui,Segoe UI,Roboto,Arial,Helvetica,sans-serif; }
+    body{ max-width:900px; margin:28px auto; padding:18px; }
+    h1{ margin-bottom:6px }
+    #quoteDisplay{ min-height:64px; margin:12px 0; padding:14px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,.06); font-size:1.15rem }
+    .controls{ display:flex; gap:var(--gap); align-items:center; flex-wrap:wrap }
+    input[type="text"], select{ padding:8px; border-radius:6px; border:1px solid #ccc }
+    button{ padding:8px 12px; border-radius:8px; cursor:pointer }
+    .small{ font-size:.9rem; color:#444 }
+    #lastViewed{ margin-top:10px; font-size:.9rem; color:#333 }
+    hr{ margin:18px 0 }
   </style>
 </head>
 <body>
   <h1>Dynamic Quote Generator</h1>
 
-  <!-- Category Selector -->
-  <div>
-    <label for="categorySelect">Choose a category: </label>
-    <select id="categorySelect" class="categorySelect"></select>
+  <div class="controls">
+    <label for="categorySelect">Category:</label>
+    <select id="categorySelect"></select>
+
+    <button id="newQuote">Show New Quote</button>
+
+    <button id="exportBtn">Export Quotes (JSON)</button>
+
+    <input type="file" id="importFile" accept=".json" />
+
+    <button id="resetBtn">Reset to Default Quotes</button>
   </div>
 
-  <!-- Displayed Quote -->
-  <div id="quoteDisplay"></div>
+  <div id="quoteDisplay" aria-live="polite"></div>
 
-  <!-- Show New Quote Button -->
-  <button id="newQuote">Show New Quote</button>
+  <div id="lastViewed" class="small"></div>
 
-  <hr>
+  <hr />
 
-  <!-- Add New Quote Section -->
   <h3>Add a New Quote</h3>
-  <input id="newQuoteText" type="text" placeholder="Enter a new quote">
-  <input id="newQuoteCategory" type="text" placeholder="Enter quote category">
-  <button id="addQuoteBtn">Add Quote</button>
+  <div class="controls">
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote" style="flex:1" />
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+    <button id="addQuoteBtn">Add Quote</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
