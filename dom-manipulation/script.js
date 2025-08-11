@@ -194,3 +194,78 @@ if (!sessionStorage.getItem(SESSION_LAST_QUOTE_KEY)) {
   const last = JSON.parse(sessionStorage.getItem(SESSION_LAST_QUOTE_KEY));
   if (last && last.text) quoteDisplay.textContent = `"${last.text}" — ${last.category}`;
 }
+const FILTER_KEY = 'dqg_lastFilter_v1';
+
+// Populate both categorySelect (for random quote) and categoryFilter (for filtering)
+function populateCategories() {
+  const categories = [...new Set(quotes.map(q => q.category))];
+
+  // categorySelect
+  categorySelect.innerHTML = '';
+  categories.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    categorySelect.appendChild(opt);
+  });
+
+  // categoryFilter
+  const filter = document.getElementById('categoryFilter');
+  filter.innerHTML = '<option value="all">All Categories</option>';
+  categories.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    filter.appendChild(opt);
+  });
+
+  // restore last filter selection
+  const lastFilter = localStorage.getItem(FILTER_KEY);
+  if (lastFilter) filter.value = lastFilter;
+}
+
+function filterQuotes() {
+  const selected = document.getElementById('categoryFilter').value;
+  localStorage.setItem(FILTER_KEY, selected);
+
+  const filtered = selected === 'all' ? quotes : quotes.filter(q => q.category === selected);
+
+  const container = document.getElementById('filteredQuotes');
+  container.innerHTML = '';
+  if (!filtered.length) {
+    container.textContent = 'No quotes found for this category.';
+    return;
+  }
+
+  filtered.forEach(q => {
+    const p = document.createElement('p');
+    p.textContent = `"${q.text}" — ${q.category}`;
+    container.appendChild(p);
+  });
+}
+
+// Update addQuote to refresh filters too
+function addQuote() {
+  const textInput = document.getElementById('newQuoteText');
+  const catInput = document.getElementById('newQuoteCategory');
+  const text = textInput.value.trim();
+  const category = catInput.value.trim();
+
+  if (!text || !category) {
+    alert('Please enter both a quote and a category.');
+    return;
+  }
+
+  quotes.push({ text, category });
+  saveQuotes();
+  populateCategories();
+  filterQuotes();
+
+  categorySelect.value = category;
+  textInput.value = '';
+  catInput.value = '';
+}
+
+// Init additions
+populateCategories();
+filterQuotes();
