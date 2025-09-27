@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dynamic Quote Generator</title>
-
-  <select id="categoryFilter">
-  <option value="all">All Categories</option>
-</select>
-<div id="filteredQuotes"></div>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dynamic Quote Generator — Sync Demo</title>
   <style>
-    :root{ --gap:12px; font-family:system-ui,Segoe UI,Roboto,Arial,Helvetica,sans-serif; }
-    body{ max-width:900px; margin:28px auto; padding:18px; }
-    h1{ margin-bottom:6px }
-    #quoteDisplay{ min-height:64px; margin:12px 0; padding:14px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,.06); font-size:1.15rem }
-    .controls{ display:flex; gap:var(--gap); align-items:center; flex-wrap:wrap }
-    input[type="text"], select{ padding:8px; border-radius:6px; border:1px solid #ccc }
-    button{ padding:8px 12px; border-radius:8px; cursor:pointer }
-    .small{ font-size:.9rem; color:#444 }
-    #lastViewed{ margin-top:10px; font-size:.9rem; color:#333 }
-    hr{ margin:18px 0 }
+    body{font-family:system-ui,Arial;max-width:980px;margin:24px auto;padding:12px}
+    #quoteDisplay{min-height:64px;padding:12px;border-radius:8px;background:#f8f9fb}
+    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    #syncStatus{margin-left:8px;font-size:.95rem;color:#333}
+    #conflictPanel{border:1px solid #f0a;padding:10px;margin-top:12px;padding:12px;display:none}
+    .conflict{border-bottom:1px dashed #ddd;padding:8px 0}
+    .conflict button{margin-right:8px}
   </style>
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
+  <h1>Dynamic Quote Generator — Sync Demo</h1>
 
   <div class="controls">
-    <label for="categorySelect">Category:</label>
+    <label>Category:</label>
     <select id="categorySelect"></select>
+
+    <label>Filter:</label>
+    <select id="categoryFilter"></select>
 
     <button id="newQuote">Show New Quote</button>
 
-    <button id="exportBtn">Export Quotes (JSON)</button>
-
-    <input type="file" id="importFile" accept=".json" />
-
-    <button id="resetBtn">Reset to Default Quotes</button>
+    <button id="syncNowBtn">Sync Now</button>
+    <label><input type="checkbox" id="autoSyncToggle" checked /> Auto Sync</label>
+    <span id="syncStatus">Not synced yet</span>
   </div>
 
   <div id="quoteDisplay" aria-live="polite"></div>
 
-  <div id="lastViewed" class="small"></div>
+  <div id="filteredQuotes"></div>
+
+  <div id="conflictPanel">
+    <h3>Sync Conflicts</h3>
+    <div id="conflictList"></div>
+    <button id="closeConflicts">Close</button>
+  </div>
 
   <hr />
 
