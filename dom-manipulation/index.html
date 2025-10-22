@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Quote Generator</title>
+    <title>Dynamic Quote Generator with Sync</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,20 +63,73 @@
             font-size: 1em;
             box-sizing: border-box;
         }
+        
+        .sync-status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .syncing {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .synced {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .conflict {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .conflict-resolution {
+            background-color: #fff3cd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .conflict-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .last-sync {
+            font-size: 0.8em;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>Dynamic Quote Generator</h1>
+    <h1>Dynamic Quote Generator with Sync</h1>
+    
+    <div id="syncStatus" class="sync-status"></div>
     
     <div class="container">
         <div id="quoteDisplay">
             <p>Click "Show New Quote" to get started!</p>
         </div>
         <button id="newQuote">Show New Quote</button>
+        <button id="manualSync">Sync Now</button>
+        <div id="lastSync" class="last-sync"></div>
     </div>
 
-    <!-- The form will be created dynamically by createAddQuoteForm() -->
-    
+    <div id="conflictResolution" class="conflict-resolution" style="display: none;">
+        <h3>Conflict Resolution Required</h3>
+        <div id="conflictList"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
