@@ -73,7 +73,7 @@ async function postQuotesToServer(quotesToPost) {
     try {
         showNotification('Posting quotes to server...', 'syncing');
         
-        // Simulate posting to server using JSONPlaceholder
+        // Simulate posting to server using JSONPlaceholder with EXACT "Content-Type" string
         const promises = quotesToPost.slice(0, 2).map(quote => 
             fetch('https://jsonplaceholder.typicode.com/posts', {
                 method: 'POST',
@@ -83,7 +83,7 @@ async function postQuotesToServer(quotesToPost) {
                     userId: 1
                 }),
                 headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
+                    'Content-Type': 'application/json; charset=UTF-8',
                 },
             })
         );
