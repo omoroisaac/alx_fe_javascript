@@ -1,55 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dynamic Quote Generator — Sync Demo</title>
-  <style>
-    body{font-family:system-ui,Arial;max-width:980px;margin:24px auto;padding:12px}
-    #quoteDisplay{min-height:64px;padding:12px;border-radius:8px;background:#f8f9fb}
-    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    #syncStatus{margin-left:8px;font-size:.95rem;color:#333}
-    #conflictPanel{border:1px solid #f0a;padding:10px;margin-top:12px;padding:12px;display:none}
-    .conflict{border-bottom:1px dashed #ddd;padding:8px 0}
-    .conflict button{margin-right:8px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        #quoteDisplay {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 5px;
+        }
+        
+        .quote-text {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .quote-category {
+            color: #666;
+            font-weight: bold;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
-  <h1>Dynamic Quote Generator — Sync Demo</h1>
+    <h1>Dynamic Quote Generator</h1>
+    
+    <div class="container">
+        <div id="quoteDisplay">
+            <p>Click "Show New Quote" to get started!</p>
+        </div>
+        <button id="newQuote">Show New Quote</button>
+    </div>
 
-  <div class="controls">
-    <label>Category:</label>
-    <select id="categorySelect"></select>
-
-    <label>Filter:</label>
-    <select id="categoryFilter"></select>
-
-    <button id="newQuote">Show New Quote</button>
-
-    <button id="syncNowBtn">Sync Now</button>
-    <label><input type="checkbox" id="autoSyncToggle" checked /> Auto Sync</label>
-    <span id="syncStatus">Not synced yet</span>
-  </div>
-
-  <div id="quoteDisplay" aria-live="polite"></div>
-
-  <div id="filteredQuotes"></div>
-
-  <div id="conflictPanel">
-    <h3>Sync Conflicts</h3>
-    <div id="conflictList"></div>
-    <button id="closeConflicts">Close</button>
-  </div>
-
-  <hr />
-
-  <h3>Add a New Quote</h3>
-  <div class="controls">
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" style="flex:1" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button id="addQuoteBtn">Add Quote</button>
-  </div>
-
-  <script src="script.js"></script>
+    <!-- The form will be created dynamically by createAddQuoteForm() -->
+    
+    <script src="script.js"></script>
 </body>
 </html>
